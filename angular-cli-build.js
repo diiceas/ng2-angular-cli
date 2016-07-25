@@ -15,7 +15,22 @@ module.exports = function(defaults) {
       'es6-shim/es6-shim.js',
       'reflect-metadata/**/*.+(ts|js|js.map)',
       'rxjs/**/*.+(js|js.map)',
-      '@angular/**/*.+(js|js.map)'
+      '@angular/**/*.+(js|js.map)',
+      'dragula/**/*.+(js|js.map)',
+      'dragula/**/*.+(css)',
+      'ng2-dragula/**/*.+(js|js.map)',
+      '@angular2-material/**/*.js',
+      'ng2-bootstrap/**/*.js',
+      'angular2-fontawesome/**/*.js',
+      'contra/emitter.js',
+      'contra/debounce.js',
+      'crossvent/dist/crossvent.min.js',
+      'atoa/atoa.js',
+      'ticky/ticky.js',
+      'moment/moment.js',
+      'font-awesome/css/*.*',
+      'font-awesome/fonts/*.*',
+      'bootstrap/dist/css/bootstrap.min.css'
     ]
   });
 };

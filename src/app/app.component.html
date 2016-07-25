@@ -1,4 +1,53 @@
-<h1>
-  {{title}}
-  <app-new-cmp></app-new-cmp>
-</h1>
+<div>
+    <div style="margin:auto;width:1200px;"><!-- replace later with a separate class -->
+        <h1>quicktask.io</h1>
+        <h4>Self-management made easy!</h4>
+        <ul class="fa-ul">
+            <li><i class="fa-li fa fa-check-square"></i>Work smart</li>
+            <li><i class="fa-li fa fa-check-square"></i>Stay focused
+                <!--keep your focus-->
+            </li>
+            <li><i class="fa-li fa fa-check-square"></i>Share your progress (if needed)</li>
+        </ul>
+        <alert type="info">
+        <!-- The basic todo list template -->
+        <div>
+            <md-input placeholder="Task name" [(ngModel)]="newTodo" (keypress)="keyPressEventHandler($event, newTodo)"></md-input>
+            <button md-raised-button (click)="addNewTodo(newTodo)">Add</button>
+            <button md-raised-button (click)="addLearningResources()">Add learning resources</button>
+            <button md-raised-button (click)="addMeetingResources()">Add meeting resources</button>
+        </div>
+        </alert>
+        <br/>
+        <div>
+            <div class='wrapper'>
+                <div class='container' [dragula]='"another-bag"' [dragulaModel]='many'>
+                    <div *ngFor='let taskItem of many' [innerHtml]='taskItem.innerText'></div>
+                </div>
+                <div class='container grey' [dragula]='"another-bag"' [dragulaModel]='many2' *ngIf="!(many.length == 0 && many2.length == 0)">
+                    <div *ngFor='let taskItem of many2'>
+                        <fa *ngIf="!taskItem.complete" style="cursor:pointer" [name]="'square-o'" (click)="completeCheckBoxOnClick($event, taskItem)"></fa>
+                        <fa *ngIf="taskItem.complete" style="cursor:pointer" [name]="'check-square-o'" (click)="completeCheckBoxOnClick($event, taskItem)"></fa>
+                        <span [class.taskItemComplete]="taskItem.complete" [innerHtml]='taskItem.innerText'></span>
+                        <md-progress-bar color="primary" mode="determinate" value="{{taskItem.complete ? 100 : taskItem.progressBarValue}}"></md-progress-bar>
+                        <!--<button md-raised-button (click)="startTaskItem(taskItem)">Start</button>-->
+                        <fa style="cursor:pointer" [name]="'play'" *ngIf="taskItem.timer == undefined" (click)="startTaskItem(taskItem)"></fa>
+                        <fa style="cursor:pointer" [name]="'pause'" *ngIf="taskItem.timer != undefined" (click)="stopTaskItem(taskItem)"></fa>
+                        <!--<button md-raised-button (click)="stopTaskItem(taskItem)">Stop</button>-->
+                        <span>{{getCurrentSecondStr(taskItem)}}</span>
+                    </div>
+                </div>
+                <div class="summary" *ngIf="many2.length != 0">
+                    <div class="container widget grey">
+                        <div>Spent: {{ getFormattedTimeBySeconds(getTotalSpentTime())}}</div>
+                        <div>Total: {{ getFormattedTimeBySeconds(getTotalTime())}}</div>
+                        <!--<div>Overdue: {{ getFormattedTimeBySeconds(getTotalOverdueTime())}}</div>-->
+                        <div *ngIf="getTotalOverdueTimePercent() != 0" [class.overdueHighlighted]="getTotalOverdueTimePercent() >= 20">
+                            Overdue: {{ (getTotalOverdueTimePercent()).toFixed(1)}}%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div>
