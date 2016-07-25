@@ -9,10 +9,12 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  'new-cmp': 'app/new-cmp'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  'new-cmp': { main: 'new-cmp.component', defaultExtension: 'js' },
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +38,7 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/new-cmp',
   /** @cli-barrel */
 ];
 
